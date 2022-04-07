@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.221:3306/mdm
+    username: u9TongBu
+    password: k@n*k@z!g351551Sb577&nx.com9@334
+
+  application:
+    name:docking_Interface
+
+server:
+  port: 8080
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
+#WorkPlus
+ticket:
+  grant_type: client_credentials
+  scope: app
+  domain_id: nanxing
+  org_id: 82492c0b5f7542f4b7555df75bc1b724
+  client_id: 7OaFYjMhEje5CD1IPkflUK
+  client_secret: ead1c9b57c56457182e00e1870fd8550
+
+#
+token:
+  corp_id: aa1953f4-dc86-4d63-9380-b1ef461a3fde
+  corp_secret: 2b0696d76909484cbda6c29c14e45164bd644f3bab0849eabef9fcf891cbbae0
+  sg_corp_id: 7d517ad3-1981-4e62-99e5-6c68bcc80425
+  sg_corp_secret: 4909d3ab7d934206b5682cde4349798c5950d1560b9c4683af674ccfcf431da9
+
+#
+nx:
+  title:
+    newsHttp: https://www.nanxing.com/ic207404.html
+
+
+
+
