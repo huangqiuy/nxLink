@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class AttendanceReturnPojo {
-    private List<UseAttendancePojo> data;
+public class AttendanceReturnDTO {
+    private List<UseAttendanceDTO> data;
     private Integer errcode;
     private String errmsg;
 }

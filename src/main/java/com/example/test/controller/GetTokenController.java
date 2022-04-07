@@ -12,7 +12,6 @@ import java.io.IOException;
 @RequestMapping("/getToken")
 public class GetTokenController {
 
-
     @Resource
     private IGetTokenService getTokenService;
 
@@ -21,9 +20,4 @@ public class GetTokenController {
         return getTokenService.getTokens(ticket, userId);
     }
 
-    @GetMapping("/getNewsList")
-    public String getNewsList() {
-        String newsList = getTokenService.getNewsList();
-        return newsList;
-    }
 }

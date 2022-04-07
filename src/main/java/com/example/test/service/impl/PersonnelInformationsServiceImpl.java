@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PersonnelInformationsServiceImpl extends ServiceImpl<PersonnelInformationsMapper, PersonnelInformations> implements IPersonnelInformationsService {
-    
+
 
 }

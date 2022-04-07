@@ -13,5 +13,5 @@ public interface IGetTokenService {
     String getTokens(String ticket, String userId) throws IOException;
 
 
-    String getNewsList();
+//    String getNewsList();
 }

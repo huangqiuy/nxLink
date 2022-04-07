@@ -6,11 +6,11 @@ package com.example.test.config;
 
 public enum CheckTypeExceptionEnum {
 
-    MISSING_CARD("月初"),
-    LATE("暂未"),
-    VACATION("创建"),
-    COMPENSATORY_LEAVE("考勤"),
-    ATTENDANCE("表");
+    MISSING_CARD("人事"),
+    LATE("部门"),
+    VACATION("未创"),
+    COMPENSATORY_LEAVE("建考"),
+    ATTENDANCE("勤表");
 
     private String type;
 

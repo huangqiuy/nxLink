@@ -3,7 +3,7 @@ package com.example.test.entity.workplustoken;
 import lombok.Data;
 
 @Data
-public class UserPojo {
+public class UserDTO {
     private Long birthday;
     private String gender;
     private Long create_time;

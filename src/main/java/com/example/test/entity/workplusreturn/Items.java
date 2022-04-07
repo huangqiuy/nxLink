@@ -10,11 +10,11 @@ public class Items {
     private String showType;
     private String title;
     private Object number;
-    private String subTitle;
-    private String dateTime;
+    private String sub_title;
+    private String date_time;
     private String source;
-    private String eventType;
-    private String eventValue;
-    private String iconType;
-    private String iconValue;
+    private String event_type;
+    private String event_value;
+    private String icon_type;
+    private String icon_value;
 }

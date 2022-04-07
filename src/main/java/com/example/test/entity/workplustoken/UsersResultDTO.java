@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UsersResultPojo {
+public class UsersResultDTO {
     private Integer total_count;
-    private List<UserPojo> users;
+    private List<UserDTO> users;
 }

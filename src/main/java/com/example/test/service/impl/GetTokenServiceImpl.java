@@ -9,16 +9,16 @@ import com.example.test.config.ResultCodeEnum;
 import com.example.test.entity.AccessToken;
 import com.example.test.entity.Message;
 import com.example.test.entity.PersonnelInformations;
-import com.example.test.entity.ReturnAccessTokenPojo;
-import com.example.test.entity.twohrattendance.AttendanceReturnPojo;
-import com.example.test.entity.twohrattendance.UseAttendancePojo;
+import com.example.test.entity.ReturnAccessTokenDTO;
+import com.example.test.entity.twohrattendance.AttendanceReturnDTO;
+import com.example.test.entity.twohrattendance.UseAttendanceDTO;
 import com.example.test.entity.twohrtoken.HRToken;
 import com.example.test.entity.twohrtoken.HrTokenData;
 import com.example.test.entity.workplusreturn.Items;
 import com.example.test.entity.workplusreturn.ResultInfo;
 import com.example.test.entity.workplusreturn.ReturnInfo;
-import com.example.test.entity.workplustoken.UserPojo;
-import com.example.test.entity.workplustoken.UsersReturnPojo;
+import com.example.test.entity.workplustoken.UserDTO;
+import com.example.test.entity.workplustoken.UsersReturnDTO;
 import com.example.test.service.IGetTokenService;
 import com.example.test.service.IPersonnelInformationsService;
 import org.apache.commons.httpclient.HttpClient;
@@ -27,10 +27,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +52,8 @@ public class GetTokenServiceImpl implements IGetTokenService {
     @Resource
     IPersonnelInformationsService iPersonnelInformationsService;
 
-    @Value("${nx.title.newsHttp}")
-    private String newsHttp;
+//    @Value("${nx.title.newsHttp}")
+//    private String newsHttp;
 
     @Value("${token.corp_id}")
     private String corpId;
@@ -106,7 +102,7 @@ public class GetTokenServiceImpl implements IGetTokenService {
         try {
             if (timeInMillis > expireTime || timeInMillis == expireTime) {
                 Message workPlusTokenMessage = this.getWorkPlusToken();
-                ReturnAccessTokenPojo returnAccessTokenPojo = (ReturnAccessTokenPojo) workPlusTokenMessage.getData();
+                ReturnAccessTokenDTO returnAccessTokenPojo = (ReturnAccessTokenDTO) workPlusTokenMessage.getData();
                 accessToken = returnAccessTokenPojo.getAccessToken();
                 expireTime = returnAccessTokenPojo.getExpireTime();
             }
@@ -148,52 +144,52 @@ public class GetTokenServiceImpl implements IGetTokenService {
         return twoHrAttendance;
     }
 
-    @Override
-    public String getNewsList() {
-        String returnJson = new String();
-        try {
-            Document doc = Jsoup.connect(newsHttp).get();
-            ReturnInfo returnInfo = new ReturnInfo();
-            returnInfo.setStatus(0);
-            returnInfo.setMessage("everything is ok");
-            ArrayList<Items> itemsList = new ArrayList<>();
-            Elements listElements = doc.select("dl[class='articlelist-liststyle21']").select("dd");
-            for (Element newsEle : listElements) {
-                Elements srcImg = newsEle.select(".pic img");
-                String imgUrl = srcImg.attr("src");
-                String majorTitle = srcImg.attr("alt");
-                Elements href = newsEle.select("div.pic");
-                String url = href.select("a[href]").attr("href");
-                Elements con = newsEle.select(".con");
-                Elements select = con.select("div[class='text textOverClm clm3']");
-                String subTitle = select.text();
-                Elements eleDate = newsEle.select(".date");
-                String year = eleDate.select("div.date_box3").text();
-                Elements date_box1 = eleDate.select("div.date_box1");
-                String monthAndDay = date_box1.text().replace(" ", "");
-                String date = new String(year + "-" + monthAndDay);
-                Items items = new Items();
-                items.setTitle(majorTitle);
-                items.setSubTitle(subTitle);
-                items.setDateTime(date);
-                items.setSource("南兴官网");
-                items.setEventType("Url");
-                items.setEventValue("https://www.nanxing.com" + url);
-                items.setIconType("Url");
-                items.setIconValue(imgUrl);
-                itemsList.add(items);
-            }
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.setItems(itemsList);
-            returnInfo.setResult(resultInfo);
-            returnJson = JSON.toJSONString(returnInfo);
-            System.out.println(returnJson);
-        } catch (Exception e) {
-
-        }
-
-        return returnJson;
-    }
+//    @Override
+//    public String getNewsList() {
+//        String returnJson = new String();
+//        try {
+//            Document doc = Jsoup.connect(newsHttp).get();
+//            ReturnInfo returnInfo = new ReturnInfo();
+//            returnInfo.setStatus(0);
+//            returnInfo.setMessage("everything is ok");
+//            ArrayList<Items> itemsList = new ArrayList<>();
+//            Elements listElements = doc.select("dl[class='articlelist-liststyle21']").select("dd");
+//            for (Element newsEle : listElements) {
+//                Elements srcImg = newsEle.select(".pic img");
+//                String imgUrl = srcImg.attr("src");
+//                String majorTitle = srcImg.attr("alt");
+//                Elements href = newsEle.select("div.pic");
+//                String url = href.select("a[href]").attr("href");
+//                Elements con = newsEle.select(".con");
+//                Elements select = con.select("div[class='text textOverClm clm3']");
+//                String subTitle = select.text();
+//                Elements eleDate = newsEle.select(".date");
+//                String year = eleDate.select("div.date_box3").text();
+//                Elements date_box1 = eleDate.select("div.date_box1");
+//                String monthAndDay = date_box1.text().replace(" ", "");
+//                String date = new String(year + "-" + monthAndDay);
+//                Items items = new Items();
+//                items.setTitle(majorTitle);
+//                items.setSubTitle(subTitle);
+//                items.setDateTime(date);
+//                items.setSource("南兴官网");
+//                items.setEventType("Url");
+//                items.setEventValue("https://www.nanxing.com" + url);
+//                items.setIconType("Url");
+//                items.setIconValue(imgUrl);
+//                itemsList.add(items);
+//            }
+//            ResultInfo resultInfo = new ResultInfo();
+//            resultInfo.setItems(itemsList);
+//            returnInfo.setResult(resultInfo);
+//            returnJson = JSON.toJSONString(returnInfo);
+//            System.out.println(returnJson);
+//        } catch (Exception e) {
+//
+//        }
+//
+//        return returnJson;
+//    }
 
 
     public String getTwoHrAttendance(String personId) throws UnsupportedEncodingException {
@@ -244,9 +240,9 @@ public class GetTokenServiceImpl implements IGetTokenService {
      */
     private String returnFalseData(String data) {
         String returnInfoJson = "";
-        AttendanceReturnPojo attendanceReturnPojo = JSON.parseObject(data, AttendanceReturnPojo.class);
+        AttendanceReturnDTO attendanceReturnPojo = JSON.parseObject(data, AttendanceReturnDTO.class);
         if (attendanceReturnPojo != null && !("").equals(attendanceReturnPojo)) {
-            List<UseAttendancePojo> useAttendanceList = attendanceReturnPojo.getData();
+            List<UseAttendanceDTO> useAttendanceList = attendanceReturnPojo.getData();
             ArrayList<Items> itemsList = new ArrayList<>();
             ArrayList resultList = new ArrayList();
             if (useAttendanceList == null) {
@@ -295,13 +291,13 @@ public class GetTokenServiceImpl implements IGetTokenService {
      */
     private String encapsulationCheckData(String data) {
         String returnInfoJson = "";
-        AttendanceReturnPojo attendanceReturnPojo = JSON.parseObject(data, AttendanceReturnPojo.class);
+        AttendanceReturnDTO attendanceReturnPojo = JSON.parseObject(data, AttendanceReturnDTO.class);
         if (attendanceReturnPojo != null && !("").equals(attendanceReturnPojo)) {
-            List<UseAttendancePojo> useAttendanceList = attendanceReturnPojo.getData();
+            List<UseAttendanceDTO> useAttendanceList = attendanceReturnPojo.getData();
             ArrayList<Items> itemsList = new ArrayList<>();
             ArrayList resultList = new ArrayList();
             if (useAttendanceList.size() > 0) {
-                UseAttendancePojo useAttendancePojo = useAttendanceList.get(0);
+                UseAttendanceDTO useAttendancePojo = useAttendanceList.get(0);
                 //缺卡
                 Integer missingCard = useAttendancePojo.getMissingClockCount();
                 resultList.add(missingCard);
@@ -381,7 +377,7 @@ public class GetTokenServiceImpl implements IGetTokenService {
      */
     public Message getWorkPlusToken() throws IOException {
         Message returnMessage = new Message();
-        ReturnAccessTokenPojo returnAccessTokenPojo = new ReturnAccessTokenPojo();
+        ReturnAccessTokenDTO returnAccessTokenPojo = new ReturnAccessTokenDTO();
         String jsonResult = "";
         String url = "https://online.nanxing.com:9010/api/v1/token";
         Object accessTokenJson = JSON.toJSON(accessTokenParameter);
@@ -414,7 +410,7 @@ public class GetTokenServiceImpl implements IGetTokenService {
                 Map resultMap = (Map) mapMessage.get("result");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.putAll(resultMap);
-                returnAccessTokenPojo = jsonObject.toJavaObject(ReturnAccessTokenPojo.class);
+                returnAccessTokenPojo = jsonObject.toJavaObject(ReturnAccessTokenDTO.class);
                 returnMessage.setData(returnAccessTokenPojo);
             }
         }
@@ -482,11 +478,11 @@ public class GetTokenServiceImpl implements IGetTokenService {
 
                 Map userMap = (Map) JSON.parse(userJsonResult);
                 if (userMap.get(getDataSuccessTipsNumber) != null && 0 == (Integer) userMap.get(getDataSuccessTipsNumber)) {
-                    UsersReturnPojo usersReturnPojo = JSON.parseObject(userJsonResult, UsersReturnPojo.class);
+                    UsersReturnDTO usersReturnPojo = JSON.parseObject(userJsonResult, UsersReturnDTO.class);
                     if (usersReturnPojo != null && !("").equals(usersReturnPojo)) {
-                        List<UserPojo> userList = usersReturnPojo.getResult().getUsers();
+                        List<UserDTO> userList = usersReturnPojo.getResult().getUsers();
                         if (userList.size() > 0) {
-                            UserPojo userPojo = userList.get(0);
+                            UserDTO userPojo = userList.get(0);
                             username = userPojo.getName();
                         }
                     }

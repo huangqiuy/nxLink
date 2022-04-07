@@ -3,7 +3,7 @@ package com.example.test.entity.twohrattendance;
 import lombok.Data;
 
 @Data
-public class UseAttendancePojo {
+public class UseAttendanceDTO {
     //主键ID
     private String id;
     //员工ID

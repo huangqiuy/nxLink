@@ -3,8 +3,8 @@ package com.example.test.entity.workplustoken;
 import lombok.Data;
 
 @Data
-public class UsersReturnPojo {
-    private UsersResultPojo result;
+public class UsersReturnDTO {
+    private UsersResultDTO result;
     private String message;
     private Integer status;
 

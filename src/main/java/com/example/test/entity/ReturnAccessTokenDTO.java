@@ -6,7 +6,7 @@ import lombok.Data;
  * @author HQY
  */
 @Data
-public class ReturnAccessTokenPojo {
+public class ReturnAccessTokenDTO {
     private String accessToken;
     private String refreshToken;
     private String issuedTime;
