@@ -19,6 +19,10 @@ import java.util.ArrayList;
  */
 @Service
 public class GetNewsListServiceImpl implements IGetNewsListService {
+    private final String requestHeader = "https:";
+    private final String source = "南兴官网";
+    private final String type = "Url";
+    private final String officialWebsite = "https://www.nanxing.com";
 
     @Value("${nx.title.newsHttp}")
     private String newsHttp;
@@ -47,15 +51,15 @@ public class GetNewsListServiceImpl implements IGetNewsListService {
                 Elements date_box1 = eleDate.select("div.date_box1");
                 String monthAndDay = date_box1.text().replace(" ", "");
                 String date = new String(year + "-" + monthAndDay);
-                imgUrl = "https:" + imgUrl;
+                imgUrl = requestHeader + imgUrl;
                 Items items = new Items();
                 items.setTitle(majorTitle);
                 items.setSub_title(subTitle);
                 items.setDate_time(date);
-                items.setSource("南兴官网");
-                items.setEvent_type("Url");
-                items.setEvent_value("https://www.nanxing.com" + url);
-                items.setIcon_type("Url");
+                items.setSource(source);
+                items.setEvent_type(type);
+                items.setEvent_value(officialWebsite + url);
+                items.setIcon_type(type);
                 items.setIcon_value(imgUrl);
                 itemsList.add(items);
             }
